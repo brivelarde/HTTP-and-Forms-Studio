@@ -4,16 +4,111 @@
 	<meta charset="utf-8">
 	<script>
 		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
+		let engines = {
+			"google" : "https://www.google.com/search",
+			"duckduckgo" : "https://duckduckgo.com/",
+			"bing" : "https://www.bing.com/search",
+			"ask" : "https://www.ask.com/web"
+		};
+
+
+    	window.addEventListener("load", function(){
+        	// TODO: register the handler
+
+			//status: form built, CSS is pretty. Submission validation works. COMPLETE
+			let form = document.querySelector("form");
+			form.addEventListener("submit", function(event) {
+				let query = document.querySelector("input[name=q]").value;
+				//let bob = query.bob.bob
+				console.log(`query: ${query}`);
+				console.log(typeof query);
+				let radio = document.querySelector("input[name=engine]:checked");
+				if (query === "" || radio === null) {
+					window.alert("Please enter a search term and select a search engine before submitting!");
+					event.preventDefault();
+				} else {
+					let radioEngine = radio?.value;
+					let engineUrl = engines[radioEngine];
+					form.setAttribute("action", engineUrl)
+					console.log(radioEngine);
+					console.log(form.getAttribute("action"))
+				}
+			});
+   		 });
 	</script>
+	<style>
+		body {
+			font-family: "Monaco", Monospace;
+			font-size: 15pt;
+			background-color: LavenderBlush;
+		}
+		#que {
+			width: 1200px;
+  			border: 5px solid DarkSeaGreen;
+  			padding: 50px;
+  			margin: 20px;
+		}
+		#eng {
+			width: 1200px;
+			height: 500px;
+  			border: 5px solid DarkSeaGreen;
+  			padding: 50px;
+  			margin: 20px;
+		}
+		.button {
+			font-family: "Monaco", Monospace;
+			font-size: 15pt;
+			background-color: DarkGreen;
+			border: 3px solid darkgoldenrod;
+			color: white;
+			border-radius: 12px;
+			transition-duration: 0.4s
+		}
+		.button:hover {
+			border: 3px solid DarkGreen;
+			background-color: white;
+			color: black
+		}
+	</style>
 </head>
 
 <body>
 
-	<form id="searchForm">
+	<form id="searchForm" action="">
     <!-- TODO: add form elements -->
+	<div id="que">
+		<center>
+			<label> Query
+				<input type="text" name="q"/>
+			</label>
+		</center>
+	</div>
+
+	<br><br/>
+
+	<div id="eng">
+		<label> Google
+			<input type="radio" name="engine" value="google"/>
+		</label>
+		<br><br/>
+		<label> DuckDuckGo
+			<input type="radio" name="engine" value="duckduckgo"/>
+		</label>
+		<br><br/>
+		<label> Bing
+			<input type="radio" name="engine" value="bing"/>
+		</label>
+		<br><br/>
+		<label> Ask
+			<input type="radio" name="engine" value="ask"/>
+		</label>
+		<br><br/>
+
+		<div>
+			<input type="submit" value="Go!" class="button"/>
+		</div>
+	</div>
+
 	</form>
 
 </body>
